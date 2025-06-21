@@ -23,4 +23,4 @@ ENV DATABASE_TYPE=JSON
 ENV DATA_FILE=data.json
 
 # Command to run the application
-# CMD ["python", "launcher.py"] 
+CMD ["python", "launcher.py"] 

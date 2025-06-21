@@ -8,4 +8,3 @@ services:
     restart: unless-stopped
     environment:
       - TOKEN=${TOKEN}
-    command: python launcher.py
