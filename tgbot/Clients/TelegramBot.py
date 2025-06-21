@@ -1,4 +1,4 @@
-from telegram import Update
+from telegram import Update, BotCommand
 from telegram.ext import Application, CommandHandler, CallbackContext
 from tgbot.Backends.BackendInterface import BackendInterface
 
@@ -7,7 +7,7 @@ class TelegramBot:
         self.backend = backend
 
         # Создаем и запускаем бота
-        app = Application.builder().token(token).build()
+        app = Application.builder().token(token).post_init(self.post_init).build()
 
         app.add_handler(CommandHandler("start", self.start))
         app.add_handler(CommandHandler("who", self.who))
@@ -20,18 +20,23 @@ class TelegramBot:
 
         app.run_polling()
 
+    # В функции запуска бота (например, main или в on_startup)
+    async def post_init(self, application):
+        await application.bot.set_my_commands([
+            BotCommand("start", "Начать работу с ботом"),
+            BotCommand("who", "Узнать, чья очередь"),
+            BotCommand("list", "Показать список людей"),
+            BotCommand("add", "Добавить нового человека"),
+            BotCommand("remove", "Удалить человека из списка"),
+            BotCommand("swap", "Поменять местами двух людей"),
+            BotCommand("addlist", "Добавить список людей"),
+            BotCommand("set", "Установить дежурного на сегодня"),
+        ])
+
     # Команда /start
     async def start(self, update: Update, context: CallbackContext):
         await update.message.reply_text(
             "Привет! Этот бот помогает определить, кто сегодня разгружает посудомойку.\n"
-            "Команды:\n"
-            "/who — Узнать, чья очередь\n"
-            "/add Имя — Добавить человека\n"
-            "/addlist Имя1, Имя2, Имя3 — Добавить список людей\n"
-            "/remove Имя — Удалить человека\n"
-            "/list — Показать список\n"
-            "/swap Имя1 Имя2 — Поменять людей местами\n"
-            "/set Имя — Установить дежурного на сегодня"
         )
 
     # Определение, кто сегодня дежурный
