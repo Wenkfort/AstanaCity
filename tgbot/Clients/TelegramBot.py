@@ -15,7 +15,7 @@ class TelegramBot:
         app.add_handler(CommandHandler("remove", self.remove_person))
         app.add_handler(CommandHandler("list", self.list_people))
         app.add_handler(CommandHandler("swap", self.swap_people))
-        app.add_handler(CommandHandler("addlist", self.set_people_list))
+        app.add_handler(CommandHandler("setlist", self.set_people_list))
         app.add_handler(CommandHandler("set", self.set_today_person))
 
         app.run_polling()
@@ -29,7 +29,7 @@ class TelegramBot:
             BotCommand("add", "Добавить нового человека"),
             BotCommand("remove", "Удалить человека из списка"),
             BotCommand("swap", "Поменять местами двух людей"),
-            BotCommand("addlist", "Добавить список людей"),
+            BotCommand("setlist", "Установить список людей"),
             BotCommand("set", "Установить дежурного на сегодня"),
         ])
 
