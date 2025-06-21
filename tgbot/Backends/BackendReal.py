@@ -83,12 +83,12 @@ class BackendReal(BackendInterface):
         """Set a new list of people, replacing the existing one"""
         try:
             # Split the string by commas and clean up whitespace
-            names = [name.strip() for name in names_str.split(',')]
+            names = [name.strip() for name in names_str.split(' ')]
             # Remove empty names
             names = [name for name in names if name]
-            
+
             if not names:
-                raise ValueError("Список пуст! Используйте формат: Имя1, Имя2, Имя3")
+                raise ValueError("Список пуст! Используйте формат: Имя1 Имя2 Имя3")
             
             # Clear existing list
             self.data_worker.clear_chat(chat_id)

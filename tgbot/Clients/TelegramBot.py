@@ -110,7 +110,7 @@ class TelegramBot:
     async def set_people_list(self, update: Update, context: CallbackContext):
         chat_id = update.message.chat_id
         if not context.args:
-            await update.message.reply_text("Используйте: /addlist Имя1, Имя2, Имя3")
+            await update.message.reply_text("Используйте: /addlist Имя1 Имя2 Имя3")
             return
         
         names_str = " ".join(context.args)
